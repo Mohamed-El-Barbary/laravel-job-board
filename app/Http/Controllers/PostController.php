@@ -7,32 +7,61 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index(){
-        // $data = Post::all();
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
         $data = Post::paginate(5);
         return view("post.index" ,["posts" => $data]);
     }
 
-    public function create(){
-        // Post::create([
-        //     "title" => "My Fourth Post",
-        //     "author" => "Elbarbary",
-        //     "body" => "This is the body of my fourth post.",
-        //     "published" => true
-        // ]);
-
-        Post::factory(100)->create();
-        return redirect('/blog');
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view("post.create");
     }
 
-    public function show($id){
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // @TODO: This will be completed in the forms actions
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
         $post = Post::find($id);
         return view("post.show", ["post" => $post]);
     }
 
-    public function delete(){
-        Post::destroy(5);
-        return redirect("/blog");
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        return view("post.edit");
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        // @TODO: This will be completed in the forms actions
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        // @TODO: This will be completed in the forms actions
+    }
 }
