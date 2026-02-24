@@ -13,7 +13,8 @@ class PostController extends Controller
     public function index()
     {
         $data = Post::paginate(5);
-        return view("post.index" ,["posts" => $data]);
+
+        return view('post.index', ['posts' => $data]);
     }
 
     /**
@@ -21,7 +22,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view("post.create");
+        return view('post.create');
     }
 
     /**
@@ -38,7 +39,8 @@ class PostController extends Controller
     public function show(string $id)
     {
         $post = Post::find($id);
-        return view("post.show", ["post" => $post]);
+
+        return view('post.show', ['post' => $post]);
     }
 
     /**
@@ -46,7 +48,7 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        return view("post.edit");
+        return view('post.edit');
     }
 
     /**

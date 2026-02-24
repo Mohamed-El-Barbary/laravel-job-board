@@ -13,6 +13,7 @@ class CommentController extends Controller
     public function index()
     {
         $comments = Comment::all();
+
         return view('comment.index', ['comments' => $comments]);
     }
 
@@ -38,6 +39,7 @@ class CommentController extends Controller
     public function show(string $id)
     {
         $comment = Comment::find($id);
+
         return view('comment.show', ['comment' => $comment]);
     }
 
@@ -47,6 +49,7 @@ class CommentController extends Controller
     public function edit(string $id)
     {
         $comment = Comment::find($id);
+
         return view('comment.edit', ['comment' => $comment]);
     }
 
@@ -55,7 +58,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //@TODO: Implement update method to save changes to an existing comment in the database 
+        // @TODO: Implement update method to save changes to an existing comment in the database
     }
 
     /**

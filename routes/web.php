@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\__TagController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;

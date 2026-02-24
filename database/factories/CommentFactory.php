@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class CommentFactory extends Factory
 {
     protected $model = Comment::class;
+
     /**
      * Define the model's default state.
      *
@@ -21,7 +22,7 @@ class CommentFactory extends Factory
     {
         return [
             'post_id' => Post::factory(),
-            'content'=> $this->faker->sentence(5),
+            'content' => $this->faker->sentence(5),
             'author' => $this->faker->name(),
         ];
     }

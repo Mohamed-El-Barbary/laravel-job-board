@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 class PostFactory extends Factory
 {
     protected $model = Post::class;
+
     /**
      * Define the model's default state.
      *
@@ -21,10 +22,10 @@ class PostFactory extends Factory
     {
         return [
             'id' => Str::uuid()->toString(),
-            'title'=> $this->faker->sentence(5),
+            'title' => $this->faker->sentence(5),
             'author' => $this->faker->name(),
-            'body' => $this->faker->paragraph(3 , true),
-            'published' => $this->faker->boolean()
+            'body' => $this->faker->paragraph(3, true),
+            'published' => $this->faker->boolean(),
         ];
     }
 }

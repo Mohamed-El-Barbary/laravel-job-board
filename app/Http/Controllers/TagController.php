@@ -13,7 +13,8 @@ class TagController extends Controller
     public function index()
     {
         $tags = Tag::all();
-        return view("tag.index",['tags'=>$tags]);
+
+        return view('tag.index', ['tags' => $tags]);
     }
 
     /**
@@ -38,6 +39,7 @@ class TagController extends Controller
     public function show(string $id)
     {
         $tag = Tag::find($id);
+
         return view('tag.show', ['tag' => $tag]);
     }
 

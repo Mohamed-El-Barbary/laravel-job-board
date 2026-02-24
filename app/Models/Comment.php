@@ -10,15 +10,21 @@ class Comment extends Model
 {
     use HasFactory;
     use HasUuids;
+
     protected $primaryKey = 'id';
+
     protected $keyType = 'varchar';
+
     public $incrementing = false;
-    protected $table = "comment";
+
+    protected $table = 'comment';
+
     protected $fillable = ['author', 'content', 'post_id'];
+
     protected $guarded = ['id'];
 
-    public function post(){
+    public function post()
+    {
         return $this->belongsTo(Post::class);
     }
-
 }
