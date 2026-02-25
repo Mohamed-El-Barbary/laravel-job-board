@@ -6,56 +6,73 @@
                 <!-- Title -->
                 <h1 class="text-3xl font-bold text-gray-800 mb-8">Create New Post</h1>
 
-                <form class="space-y-6">
+                <form method="post" action="/blog" class="space-y-6">
+                    @csrf
                     <!-- Title + Author (Same Line) -->
                     <div class="grid md:grid-cols-2 gap-6">
                         <!-- Post Title -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Post Title</label>
+                            <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Post Title</label>
                             <input
                                 type="text"
-                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                                id="title"
+                                name="title"
+                                value="{{ old('title') }}"
+                                class="{{ $errors->has('title') ? 'border-red-500' : 'border-gray-300' }} w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                                 placeholder="Enter post title"
                             />
+                            @error('title')
+                                <p class="text-sm text-red-600 mt-2 bg-red-50 p-2 rounded">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <!-- Author -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Author</label>
+                            <label for="author" class="block text-sm font-medium text-gray-700 mb-2">Author</label>
                             <input
                                 type="text"
-                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                                id="author"
+                                name="author"
+                                value="{{ old('author') }}"
+                                class="{{ $errors->has('author') ? 'border-red-500' : 'border-gray-300' }} w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                                 placeholder="Enter author name"
                             />
+                            @error('author')
+                                <p class="text-sm text-red-600 mt-2 bg-red-50 p-2 rounded">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
                     <!-- Content -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                        <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content</label>
                         <textarea
+                            id="content"
+                            name="body"
                             rows="6"
-                            class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                            class="{{ $errors->has('body') ? 'border-red-500' : 'border-gray-300' }} w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                             placeholder="Write post content..."
-                        ></textarea>
+                        >
+                            {{ old('body') }}</textarea
+                        >
+                        @error('body')
+                            <p class="text-sm text-red-600 mt-2 bg-red-50 p-2 rounded">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <!-- Published Toggle -->
                     <div class="flex items-center justify-between bg-gray-50 px-4 py-3 rounded-xl border">
                         <div>
                             <p class="text-sm font-medium text-gray-700">Publish Post</p>
-                            <p class="text-xs text-gray-500">Make this post visible to everyone</p>
+                            <p class="text-xs text-gray-500">Make this post visible to everyone or save as draft</p>
                         </div>
 
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" class="sr-only peer" />
-                            <div
-                                class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-600 transition"
-                            ></div>
-                            <div
-                                class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition peer-checked:translate-x-5"
-                            ></div>
-                        </label>
+                        <input
+                            type="checkbox"
+                            name="published"
+                            value="1"
+                            class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                        />
                     </div>
 
                     <!-- Tags -->
@@ -89,7 +106,7 @@
                             type="button"
                             class="px-5 py-2 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-100 transition"
                         >
-                            Cancel
+                            <a href="/blog" class="block w-full h-full">Cancel</a>
                         </button>
 
                         <button

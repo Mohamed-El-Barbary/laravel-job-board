@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlogPostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -12,8 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Post::paginate(5);
-
+        $data = Post::latest()->paginate(5);
         return view('post.index', ['posts' => $data]);
     }
 
@@ -28,9 +28,16 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BlogPostRequest $request)
     {
-        // @TODO: This will be completed in the forms actions
+        $post = new Post();
+        $post->title = $request->input('title');
+        $post->author = $request->input('author');
+        $post->body = $request->input('body');
+        $post->published = $request->has('published') ? true : false;
+        $post->save();
+
+        return redirect('/blog')->with('success', 'Post created successfully!');
     }
 
     /**
@@ -48,7 +55,8 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        return view('post.edit');
+        $post = Post::findOrFail($id);
+        return view('post.edit', ['post' => $post]);
     }
 
     /**
@@ -56,7 +64,15 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // @TODO: This will be completed in the forms actions
+        $post = Post::findOrFail($id);
+        $post->title = $request->input('title');
+        $post->author = $request->input('author');
+        $post->body = $request->input('body');
+        $post->published = $request->has('published') ? true : false;
+        $post->save();
+
+        print_r($request->all());
+        return redirect('/blog')->with('success', 'Post updated successfully!');
     }
 
     /**
@@ -64,6 +80,8 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        // @TODO: This will be completed in the forms actions
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return redirect('/blog')->with('success', 'Post deleted successfully!');
     }
 }

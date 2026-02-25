@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentPostRequest;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -28,9 +30,19 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CommentPostRequest $request)
     {
-        // @TODO: Implement store method to save a new comment to the database
+        $post_id = $request->input('post_id');
+        $post = Post::findOrFail($post_id);
+
+        $comment = new Comment();
+        $comment->post_id = $post->id;
+        $comment->author = $request->input('author');
+        $comment->content = $request->input('content');
+        $comment->save();
+
+        return redirect("/blog/{$post->id}")
+            ->with('success', 'Comment added successfully!');
     }
 
     /**
@@ -58,7 +70,13 @@ class CommentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // @TODO: Implement update method to save changes to an existing comment in the database
+        $comment = Comment::findOrFail($id);
+        $comment->author = $request->input('author');
+        $comment->content = $request->input('content');
+        $comment->save();
+
+        return redirect("/blog/{$comment->post_id}")
+            ->with('success', 'Comment updated successfully!');
     }
 
     /**
@@ -66,6 +84,10 @@ class CommentController extends Controller
      */
     public function destroy(string $id)
     {
-        // @TODO: Implement destroy method to delete a comment from the database
+        $comment = Comment::findOrFail($id);
+        $comment->delete();
+
+        return redirect("/blog/{$comment->post_id}")
+            ->with('success', 'Comment deleted successfully!');
     }
 }

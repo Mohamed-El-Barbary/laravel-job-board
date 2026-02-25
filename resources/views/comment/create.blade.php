@@ -12,8 +12,7 @@
                         <input
                             type="text"
                             class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                            placeholder="Enter your name"
-                        />
+                            placeholder="Enter your name" />
                     </div>
 
                     <!-- Comment -->
@@ -22,23 +21,20 @@
                         <textarea
                             rows="4"
                             class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                            placeholder="Write your comment..."
-                        ></textarea>
+                            placeholder="Write your comment..."></textarea>
                     </div>
 
                     <!-- Buttons -->
                     <div class="flex justify-end gap-4 pt-4">
                         <button
                             type="button"
-                            class="px-5 py-2 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-100 transition"
-                        >
+                            class="px-5 py-2 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-100 transition">
                             Cancel
                         </button>
 
                         <button
                             type="submit"
-                            class="px-6 py-2 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition shadow-md"
-                        >
+                            class="px-6 py-2 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition shadow-md">
                             Post Comment
                         </button>
                     </div>
