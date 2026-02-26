@@ -14,8 +14,8 @@
                     @csrf
                     @method('PATCH')
                     <input type="hidden" name="id" value="{{ $post->id }}" />
-                    <!-- Title + Author (Same Line) -->
-                    <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Title -->
+                    <div class="grid md:grid-cols-full gap-6">
                         <!-- Post Title -->
                         <div>
                             <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Post Title</label>
@@ -28,22 +28,6 @@
                                 placeholder="Enter post title"
                             />
                             @error('title')
-                                <p class="text-sm text-red-600 mt-2 bg-red-50 p-2 rounded">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Author -->
-                        <div>
-                            <label for="author" class="block text-sm font-medium text-gray-700 mb-2">Author</label>
-                            <input
-                                type="text"
-                                id="author"
-                                name="author"
-                                value="{{ old('author', $post->author) }}"
-                                class="{{ $errors->has('author') ? 'border-red-500' : 'border-gray-300' }} w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                                placeholder="Enter author name"
-                            />
-                            @error('author')
                                 <p class="text-sm text-red-600 mt-2 bg-red-50 p-2 rounded">{{ $message }}</p>
                             @enderror
                         </div>

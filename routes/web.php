@@ -9,6 +9,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rules\Can;
 
 // Public Routes
 Route::get('/', IndexController::class);
@@ -28,7 +29,28 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Middleware for authenticated users
 Route::middleware('auth')->group(function () {
-    Route::resource('blog', PostController::class);
+
+    // Admin can access these routes
+    Route::middleware('role:admin')->group(function () {
+        Route::delete('/blog/{post}', [PostController::class, 'destroy']);
+    });
+
+    // Editor, Admin can access these routes
+    Route::middleware('role:editor,admin')->group(function () {
+        Route::get('/blog/create', [PostController::class, 'create']);
+        Route::post('/blog', [PostController::class, 'store']);
+        Route::middleware('can:update,post')->group(function () {
+            Route::get('/blog/{post}/edit', [PostController::class, 'edit']);
+            Route::patch('/blog/{post}', [PostController::class, 'update']);
+        });
+    });
+
+    // Viewer, Editor, Admin can access these routes
+    Route::middleware('role:viewer,editor,admin')->group(function () {
+        Route::get('/blog', [PostController::class, 'index']);
+        Route::get('/blog/{post}', [PostController::class, 'show']);
+    });
+
 });
 
 Route::middleware('onlyMy')->group(function () {

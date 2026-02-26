@@ -20,7 +20,6 @@ class BlogPostRequest extends FormRequest
     {
         return [
             'title' => "bail|required|unique:post,title,{$this->input("id")}|string|max:255",
-            'author' => 'required|string|max:255',
             'body' => 'required|string',
         ];
     }
@@ -29,9 +28,8 @@ class BlogPostRequest extends FormRequest
     {
         return [
             'title.required' => 'The field is required.',
-            'title.max:255'=> 'The title may not be greater than 255 characters.',
-            'author.required' => 'The field is required.',
-            'author.max:255'=> 'The author may not be greater than 255 characters.',
+            'title.max:255' => 'The title may not be greater than 255 characters.',
+            'author.max:255' => 'The author may not be greater than 255 characters.',
             'body.required' => 'The field is required.',
         ];
     }
